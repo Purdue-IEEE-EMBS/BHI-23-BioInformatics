@@ -1,0 +1,8 @@
+#!/bin/sh
+
+cd data || return
+tar -xzf test.tar.gz
+tar -xzf train.tar.gz
+rm -rf test.tar.gz
+rm -rf train.tar.gz
+
