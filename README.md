@@ -1,11 +1,12 @@
 # Purdue IEEE EMBS BHI 2023 Data Competition for Sensor Informatics
 
 ### Setup
-run `./setup_nix` if on MacOS/Linux
+#### MacOS/Linux
+run `./setup`
 
-run 
+#### Windows
+run
 ```
-cd data
-tar -xzf train.tar.gz
-tar -xzf test.tar.gz
+tar -xzf data/train.tar.gz
+tar -xzf data/test.tar.gz
 ```
