@@ -6,7 +6,6 @@ from sklearn.metrics import mean_squared_error
 test_w_gt_data = pd.read_csv('test_w_gt.csv')
 predicted_scores_df = pd.read_csv('test_predicted.csv')
 
-# Ensure both DataFrames are ordered the same way based on SMILES
 test_w_gt_data = test_w_gt_data.sort_values(by="SMILES").reset_index(drop=True)
 predicted_scores_df = predicted_scores_df.sort_values(by="SMILES").reset_index(drop=True)
 

@@ -104,6 +104,3 @@ ax.set_ylabel('Loss')
 ax.legend()
 fig.savefig('loss_over_epoch.png')
 print("Loss over epoch plot saved as loss_over_epoch.png")
-
-# Note: Since this is a regression problem, accuracy isn't a typical metric. 
-# You may want to compute and plot R-squared values or other relevant metrics for training and validation instead.
