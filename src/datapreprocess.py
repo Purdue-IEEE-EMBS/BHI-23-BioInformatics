@@ -4,6 +4,7 @@ from rdkit import Chem
 from rdkit.Chem import AllChem
 from tqdm import tqdm
 from sklearn.preprocessing import MinMaxScaler
+from rdkit.Chem import rdFingerprintGenerator
 
 # function to turn SMILES into morgan thingy
 def smiles_to_morgan(smiles_str, radius=2, nBits=2048):
@@ -13,13 +14,21 @@ def smiles_to_morgan(smiles_str, radius=2, nBits=2048):
         return np.array(morgan_fp)
     else:
         return np.zeros(nBits)
+    
+# function to turn SMILES into topological torsion fingerprint
+def get_topological_torsion_fingerprint(smiles_str):
+  molecule = Chem.MolFromSmiles(smiles_str)
+  fingerprint_generator = rdFingerprintGenerator.GetTopologicalTorsionGenerator()
+  fingerprint = fingerprint_generator.GetFingerprint(molecule)
+
+  return np.array(fingerprint)
 
 print("Loading data...")
 data = pd.read_csv('train.csv')
 
 # Convert SMILES to Morgan fingerprints
-print("Converting SMILES to Morgan fingerprints...")
-data_X = np.array([smiles_to_morgan(smile) for smile in tqdm(data["SMILES"], desc="Converting")])
+print("Converting SMILES to Fingerprints...")
+data_X = np.array([np.concatenate((smiles_to_morgan(smile), get_topological_torsion_fingerprint(smile))) for smile in tqdm(data["SMILES"], desc="Converting to 4096 len Vector")])
 
 # regularize w min max scaling
 print("Regularizing docking scores...")
